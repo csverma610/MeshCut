@@ -194,7 +194,7 @@ inline FacePtr Face:: newObject(NodePtr &n0, NodePtr &n1, NodePtr &n2)
 
 struct Mesh
 {
-    void refine( FacePtr &f);
+    void refine( FacePtr &f, int type = 14);
     void flip(   EdgePtr &e);
     void makeConsistent( FacePtr &e);
 

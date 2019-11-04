@@ -82,9 +82,7 @@ void Mesh:: makeConsistent( FacePtr &f)
 	addFace(f2);
         return;
     }
-
 }
-
 
 void MeshCutter:: readMesh( const string &filename)
 {
@@ -310,7 +308,7 @@ void Mesh::flip( EdgePtr &e)
 
 ////////////////////////////////////////////////////////////////////////////////
 
-void Mesh::refine( FacePtr &f)
+void Mesh::refine(FacePtr &f, int type)
 {
     assert(f);
 
@@ -318,6 +316,7 @@ void Mesh::refine( FacePtr &f)
         if(f->getArea() > 1.0E-10) {
             remove(f);
 
+            if( type == 14) {
             NodePtr steiner[3];
             for( int i = 0; i < 3; i++) {
                 auto edge = f->edges[i];
@@ -339,8 +338,9 @@ void Mesh::refine( FacePtr &f)
             addFace(f1);
             addFace(f2);
             addFace(f3);
+	    }
 
-            /*
+	    if( type == 13) {
                 NodePtr newnode = Node::newObject();
                 newnode->xyz    = f->getCentroid();
                 newnode->id     = nodes.size();
@@ -352,7 +352,7 @@ void Mesh::refine( FacePtr &f)
                 addFace(f0);
                 addFace(f1);
                 addFace(f2);
-            */
+	    }
         }
     }
 }
@@ -586,7 +586,6 @@ void MeshCutter:: getLandMarksPath()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-
 
 void MeshCutter:: refinePath()
 {
